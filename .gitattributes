@@ -4,8 +4,8 @@
 *.jpeg binary
 *.ico binary
 *.icns binary
-zcashd binary
-zcash-cli binary
-zcashd.exe binary
-zcash-cli.exe binary
+bzedged binary
+bzedge-cli binary
+bzedged.exe binary
+bzedge-cli.exe binary
 
