@@ -14,6 +14,7 @@ import ScrollPane from './ScrollPane';
 import Utils from '../utils/utils';
 import AddressBook from './Addressbook';
 import routes from '../constants/routes.json';
+import { ZcashURITarget } from '../utils/uris';
 
 const TxModalInternal = ({ modalIsOpen, tx, info, closeModal, currencyName, zecPrice, setSendTo, history }) => {
   let txid = '';
@@ -46,10 +47,10 @@ const TxModalInternal = ({ modalIsOpen, tx, info, closeModal, currencyName, zecP
   }
 
   const openTxid = () => {
-    if (currencyName === 'TAZ') {
-      shell.openExternal(`https://chain.so/tx/ZECTEST/${txid}`);
+    if (currencyName === 'ZBZE') {
+      shell.openExternal(`https://explorer.getbze.com/tx/${txid}`);
     } else {
-      shell.openExternal(`https://zcha.in/transactions/${txid}`);
+      shell.openExternal(`https://explorer.getbze.com/tx/${txid}`);
     }
   };
 

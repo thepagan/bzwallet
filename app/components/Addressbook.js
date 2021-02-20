@@ -14,6 +14,7 @@ import { AddressBookEntry } from './AppState';
 import ScrollPane from './ScrollPane';
 import Utils from '../utils/utils';
 import routes from '../constants/routes.json';
+import { ZcashURITarget } from '../utils/uris';
 
 // Internal because we're using withRouter just below
 const AddressBookItemInteral = ({ item, removeAddressBookEntry, setSendTo, history }) => {

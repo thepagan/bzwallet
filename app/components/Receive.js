@@ -42,7 +42,7 @@ const AddressBlock = ({
   const balance = addressBalance.balance || 0;
 
   const openAddress = () => {
-    if (currencyName === 'TAZ') {
+    if (currencyName === 'ZBZE') {
       shell.openExternal(`https://chain.so/address/ZECTEST/${address}`);
     } else {
       shell.openExternal(`https://explorer.getbze.com/address/${address}`);
