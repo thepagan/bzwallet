@@ -152,7 +152,7 @@ export default class MenuBuilder {
         {
           label: 'zcashd info',
           click: () => {
-            this.mainWindow.webContents.send('zcashd');
+            this.mainWindow.webContents.send('bzedged');
           }
         },
         { type: 'separator' },
@@ -177,7 +177,7 @@ export default class MenuBuilder {
         {
           label: 'zcashd info',
           click: () => {
-            this.mainWindow.webContents.send('zcashd');
+            this.mainWindow.webContents.send('bzedged');
           }
         }
       ]
@@ -285,7 +285,7 @@ export default class MenuBuilder {
           {
             label: 'zcashd info',
             click: () => {
-              this.mainWindow.webContents.send('zcashd');
+              this.mainWindow.webContents.send('bzedged');
             }
           }
         ]

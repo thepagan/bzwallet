@@ -516,7 +516,7 @@ export default class Send extends PureComponent<Props, SendState> {
     const customStyles = {
       option: (provided, state) => ({
         ...provided,
-        color: state.isSelected ? '#c3921f;' : 'white',
+        color: state.isSelected ? 'rgb(51,195,224);' : 'white',
         background: '#212124;',
         padding: 20
       }),

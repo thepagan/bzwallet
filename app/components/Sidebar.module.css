@@ -11,11 +11,11 @@
 }
 
 .sidebarmenuitemactive {
-  color: #c3921f;
+  color: rgb(51, 195, 224);
 }
 
 .sidebarlogobg {
-  background: #ffb100;
+  background: #000;
   margin-bottom: 8px;
 }
 

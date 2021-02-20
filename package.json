@@ -1,8 +1,8 @@
 {
-  "name": "zecwallet",
-  "productName": "Zecwallet Fullnode",
+  "name": "bzwallet",
+  "productName": "BZWallet FUll Node",
   "version": "1.4.2",
-  "description": "Zecwallet Fullnode (Electron version)",
+  "description": "BZWallet (Electron version)",
   "scripts": {
     "build": "concurrently \"yarn build-main\" \"yarn build-renderer\"",
     "build-dll": "cross-env NODE_ENV=development webpack --config ./configs/webpack.config.renderer.dev.dll.babel.js --colors",
@@ -53,8 +53,8 @@
     ]
   },
   "build": {
-    "productName": "Zecwallet Fullnode",
-    "appId": "co.zecwallet.fullnode",
+    "productName": "BZWallet full node",
+    "appId": "bzwallet.bzedge.fullnode",
     "afterAllArtifactBuild": "./afterSignHook.js",
     "files": [
       "dist/",
@@ -122,7 +122,7 @@
         "libxtst6",
         "libnss3"
       ],
-      "artifactName": "Zecwallet_Fullnode_${version}_${arch}.deb"
+      "artifactName": "BZWallet_Fullnode_${version}_${arch}.deb"
     },
     "linux": {
       "category": "Development",
@@ -141,15 +141,15 @@
         "AppImage"
       ],
       "desktop": {
-        "Name": "ZecWallet",
-        "Comment": "Full node and wallet for Zcash",
+        "Name": "BZWallet",
+        "Comment": "Full node and wallet for BZEdge",
         "GenericName": "Wallet",
         "Type": "Application",
         "StartupNotify": true,
-        "StartupWMClass": "zecwallet",
+        "StartupWMClass": "bzewallet",
         "Categories": "Utility;",
-        "MimeType": "x-scheme-handler/zcash;",
-        "Keywords": "zecwallet;"
+        "MimeType": "x-scheme-handler/bzedge;",
+        "Keywords": "bzwallet;"
       }
     },
     "directories": {
@@ -159,7 +159,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/adityapk00/zecwallet-electron.git"
+    "url": "git+https://github.com/faneaatiku/zecwallet"
   },
   "author": {
     "name": "Aditya Kulkarni",
@@ -175,7 +175,7 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/adityapk00/zecwallet-electron/issues"
+    "url": "https://github.com/faneaatiku/zecwallet/issues"
   },
   "keywords": [
     "electron",
@@ -188,7 +188,7 @@
     "hot",
     "reload"
   ],
-  "homepage": "https://github.com/adityapk00/zecwallet-electron#readme",
+  "homepage": "https://github.com/faneaatiku/zecwallet#readme",
   "jest": {
     "testURL": "http://localhost/",
     "moduleNameMapper": {

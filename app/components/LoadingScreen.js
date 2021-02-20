@@ -23,42 +23,42 @@ import zcashdlogo from '../assets/img/zcashdlogo.gif';
 
 const locateZcashConfDir = () => {
   if (os.platform() === 'darwin') {
-    return path.join(remote.app.getPath('appData'), 'Zcash');
+    return path.join(remote.app.getPath('appData'), 'Bzedge');
   }
 
   if (os.platform() === 'linux') {
-    return path.join(remote.app.getPath('home'), '.zcash');
+    return path.join(remote.app.getPath('home'), '.bzedge');
   }
 
-  return path.join(remote.app.getPath('appData'), 'Zcash');
+  return path.join(remote.app.getPath('appData'), 'Bzedge');
 };
 
 const locateZcashConf = () => {
   if (os.platform() === 'darwin') {
-    return path.join(remote.app.getPath('appData'), 'Zcash', 'zcash.conf');
+    return path.join(remote.app.getPath('appData'), 'Bzedge', 'bzedge.conf');
   }
 
   if (os.platform() === 'linux') {
-    return path.join(remote.app.getPath('home'), '.zcash', 'zcash.conf');
+    return path.join(remote.app.getPath('home'), '.bzedge', 'bzedge.conf');
   }
 
-  return path.join(remote.app.getPath('appData'), 'Zcash', 'zcash.conf');
+  return path.join(remote.app.getPath('appData'), 'Bzedge', 'bzedge.conf');
 };
 
 const locateZcashd = () => {
   // const con = remote.getGlobal('console');
   // con.log(`App path = ${remote.app.getAppPath()}`);
-  // con.log(`Unified = ${path.join(remote.app.getAppPath(), '..', 'bin', 'mac', 'zcashd')}`);
+  // con.log(`Unified = ${path.join(remote.app.getAppPath(), '..', 'bin', 'mac', 'bzedged')}`);
 
   if (os.platform() === 'darwin') {
-    return path.join(remote.app.getAppPath(), '..', 'bin', 'mac', 'zcashd');
+    return path.join(remote.app.getAppPath(), '..', 'bin', 'mac', 'bzedged');
   }
 
   if (os.platform() === 'linux') {
-    return path.join(remote.app.getAppPath(), '..', 'bin', 'linux', 'zcashd');
+    return path.join(remote.app.getAppPath(), '..', 'bin', 'linux', 'bzedged');
   }
 
-  return path.join(remote.app.getAppPath(), '..', 'bin', 'win', 'zcashd.exe');
+  return path.join(remote.app.getAppPath(), '..', 'bin', 'win', 'bzedged.exe');
 };
 
 const locateZcashParamsDir = () => {
@@ -238,7 +238,7 @@ class LoadingScreen extends Component<Props, LoadingScreenState> {
 
     const isTestnet = (confValues.testnet && confValues.testnet === '1') || false;
     const server = confValues.rpcbind || '127.0.0.1';
-    const port = confValues.rpcport || (isTestnet ? '18232' : '8232');
+    const port = confValues.rpcport || (isTestnet ? '11980' : '1980');
     rpcConfig.url = `http://${server}:${port}`;
 
     this.setState({ rpcConfig });

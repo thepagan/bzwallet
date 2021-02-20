@@ -7,7 +7,7 @@ import { Transaction, TxDetail } from '../components/AppState';
 export default class SentTxStore {
   static locateSentTxStore() {
     if (os.platform() === 'darwin') {
-      return path.join(remote.app.getPath('appData'), 'Zcash', 'senttxstore.dat');
+      return path.join(remote.app.getPath('appData'), 'Bzedge', 'senttxstore.dat');
     }
 
     if (os.platform() === 'linux') {
@@ -21,7 +21,7 @@ export default class SentTxStore {
       );
     }
 
-    return path.join(remote.app.getPath('appData'), 'Zcash', 'senttxstore.dat');
+    return path.join(remote.app.getPath('appData'), 'Bzedge', 'senttxstore.dat');
   }
 
   static async loadSentTxns(): Transaction[] {

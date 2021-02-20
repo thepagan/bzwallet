@@ -27,7 +27,7 @@
 }
 
 .highlight {
-  color: #c3921f;
+  color: rgb(51, 195, 224);
 }
 
 .xlarge {
@@ -83,7 +83,7 @@
 }
 
 .primarybutton {
-  background-color: #c3921f;
+  background-color: rgb(51, 195, 224);
   color: #000;
   text-align: center;
   font-weight: bold;
@@ -93,7 +93,7 @@
   padding-left: 16px;
   padding-right: 16px;
   border-radius: 4px;
-  border-color: #c3921f;
+  border-color: rgb(51, 195, 224);
   margin-left: 8px;
   margin-right: 8px;
 }

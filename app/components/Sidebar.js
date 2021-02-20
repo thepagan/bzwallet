@@ -347,7 +347,7 @@ class Sidebar extends PureComponent<Props, State> {
     });
 
     // View zcashd
-    ipcRenderer.on('zcashd', () => {
+    ipcRenderer.on('bzedged', () => {
       history.push(routes.ZCASHD);
     });
 
@@ -495,7 +495,7 @@ class Sidebar extends PureComponent<Props, State> {
         />
 
         <div className={[cstyles.center, styles.sidebarlogobg].join(' ')}>
-          <img src={Logo} width="70" alt="logo" />
+          <img src={Logo} width="100%" alt="logo" />
         </div>
 
         <div className={styles.sidebar}>
