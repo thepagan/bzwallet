@@ -58,10 +58,10 @@ export default class MenuBuilder {
     const { mainWindow } = this;
 
     const subMenuAbout = {
-      label: 'Zecwallet Fullnode',
+      label: 'BZWallet',
       submenu: [
         {
-          label: 'About Zecwallet Fullnode',
+          label: 'About BZWallet',
           selector: 'orderFrontStandardAboutPanel:',
           click: () => {
             mainWindow.webContents.send('about');
@@ -71,7 +71,7 @@ export default class MenuBuilder {
         { label: 'Services', submenu: [] },
         { type: 'separator' },
         {
-          label: 'Hide Zecwallet Fullnode',
+          label: 'Hide BZWallet',
           accelerator: 'Command+H',
           selector: 'hide:'
         },
@@ -144,13 +144,7 @@ export default class MenuBuilder {
       label: 'View',
       submenu: [
         {
-          label: 'Connect Mobile App',
-          click: () => {
-            this.mainWindow.webContents.send('connectmobile');
-          }
-        },
-        {
-          label: 'zcashd info',
+          label: 'bzedged info',
           click: () => {
             this.mainWindow.webContents.send('bzedged');
           }
@@ -169,13 +163,7 @@ export default class MenuBuilder {
       label: 'View',
       submenu: [
         {
-          label: 'Connect Mobile App',
-          click: () => {
-            this.mainWindow.webContents.send('connectmobile');
-          }
-        },
-        {
-          label: 'zcashd info',
+          label: 'bzedged info',
           click: () => {
             this.mainWindow.webContents.send('bzedged');
           }
@@ -207,13 +195,13 @@ export default class MenuBuilder {
         {
           label: 'Check github.com for updates',
           click() {
-            shell.openExternal('https://github.com/zcashfoundation/zecwallet/releases');
+            shell.openExternal('https://github.com/faneaatiku/bzwallet/releases');
           }
         },
         {
           label: 'File a bug...',
           click() {
-            shell.openExternal('https://github.com/zcashfoundation/zecwallet/issues');
+            shell.openExternal('https://github.com/faneaatiku/bzwallet/issues');
           }
         }
       ]
@@ -308,13 +296,13 @@ export default class MenuBuilder {
           {
             label: 'Check github.com for updates',
             click() {
-              shell.openExternal('https://github.com/zcashfoundation/zecwallet/releases');
+              shell.openExternal('https://github.com/faneaatiku/bzwallet/releases');
             }
           },
           {
             label: 'File a bug...',
             click() {
-              shell.openExternal('https://github.com/zcashfoundation/zecwallet/issues');
+              shell.openExternal('https://github.com/faneaatiku/bzwallet/issues');
             }
           }
         ]

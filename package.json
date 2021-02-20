@@ -159,7 +159,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/faneaatiku/zecwallet"
+    "url": "git+https://github.com/faneaatiku/bzwallet"
   },
   "author": {
     "name": "Aditya Kulkarni",
@@ -171,11 +171,16 @@
       "name": "Aditya Kulkarni",
       "email": "aditya@zecwallet.co",
       "url": "https://zecwallet.co"
+    },
+    {
+      "name": "Stefan Victor",
+      "email": "alphateam@getbze.com",
+      "url": "https://getbze.com"
     }
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/faneaatiku/zecwallet/issues"
+    "url": "https://github.com/faneaatiku/bzwallet/issues"
   },
   "keywords": [
     "electron",
@@ -188,7 +193,7 @@
     "hot",
     "reload"
   ],
-  "homepage": "https://github.com/faneaatiku/zecwallet#readme",
+  "homepage": "https://github.com/faneaatiku/bzwallet#readme",
   "jest": {
     "testURL": "http://localhost/",
     "moduleNameMapper": {

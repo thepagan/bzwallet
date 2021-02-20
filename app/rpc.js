@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable max-classes-per-file */
 import axios from 'axios';
 import _ from 'underscore';
@@ -512,7 +513,8 @@ export default class RPC {
 
     try {
       const response = await new Promise((resolve, reject) => {
-        axios('https://api.coincap.io/v2/rates/zcash', {
+        // eslint-disable-next-line prettier/prettier
+        axios('https://api.coingecko.com/api/v3/coins/bzedge?tickers=false&market_data=true&community_data=false&developer_data=false&sparkline=false', {
           method: 'GET'
         })
           .then(r => resolve(r.data))
@@ -521,9 +523,9 @@ export default class RPC {
           });
       });
 
-      const zecData = response.data;
+      const zecData = response;
       if (zecData) {
-        this.fnSetZecPrice(zecData.rateUsd);
+        this.fnSetZecPrice(zecData.market_data.current_price.usd);
         this.setupNextZecPriceRefresh(0, 1000 * 60 * 60); // Every hour
       } else {
         this.fnSetZecPrice(null);
