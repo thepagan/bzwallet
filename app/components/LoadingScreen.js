@@ -210,7 +210,7 @@ class LoadingScreen extends Component<Props, LoadingScreenState> {
       }
 
       this.setState({
-        currentStatus: `Could not create zcash.conf at ${zcashLocation}. This is a bug, please file an issue with Zecwallet`
+        currentStatus: `Could not create bzedge.conf at ${zcashLocation}. This is a bug, please file an issue with BZWallet`
       });
       return;
     }
@@ -375,7 +375,7 @@ class LoadingScreen extends Component<Props, LoadingScreenState> {
         this.setState({
           currentStatus: (
             <span>
-              Failed to start bzedge daemon. Giving up! Please look at the debug.log file.
+              Failed to start BZEdge daemon. Giving up! Please look at the debug.log file.
               <br />
               <span className={cstyles.highlight}>{`${locateZcashConfDir()}/debug.log`}</span>
               <br />
@@ -423,7 +423,7 @@ class LoadingScreen extends Component<Props, LoadingScreenState> {
                     ' '
                   )}
                 >
-                  <div className={[cstyles.xlarge].join(' ')}> Welcome To Zecwallet Fullnode!</div>
+                  <div className={[cstyles.xlarge].join(' ')}> Welcome To BZWallet Fullnode!</div>
                 </div>
 
                 <div className={[cstyles.center, cstyles.margintoplarge].join(' ')}>

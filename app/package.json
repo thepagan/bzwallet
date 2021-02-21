@@ -1,13 +1,13 @@
 {
-  "name": "zecwallet",
-  "productName": "Zecwallet Fullnode",
+  "name": "bzwallet",
+  "productName": "BZWallet Fullnode",
   "version": "1.4.2",
-  "description": "Zecwallet Fullnode",
+  "description": "BZWallet Fullnode",
   "main": "./main.prod.js",
   "author": {
-    "name": "Aditya Kulkarni",
-    "email": "aditya@zecwallet.co",
-    "url": "https://github.com/adityapk00/zecwallet-electron"
+    "name": "Stefan Victor",
+    "email": "alphateam@getbze.com",
+    "url": "https://github.com/faneaatiku/bzwallet"
   },
   "scripts": {
     "electron-rebuild": "node -r ../internals/scripts/BabelRegister.js ../internals/scripts/ElectronRebuild.js",

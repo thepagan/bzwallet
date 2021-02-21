@@ -131,7 +131,7 @@ export default class Utils {
   }
 
   static getDefaultDonationMemo(testnet: boolean): string {
-    return 'Thanks for supporting Zecwallet!';
+    return 'Thanks for supporting BZWallet!';
   }
 
   static getZecToUsdString(price: number | null, zecValue: number | null): string {

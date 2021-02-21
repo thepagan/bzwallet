@@ -55,7 +55,6 @@
   "build": {
     "productName": "BZWallet full node",
     "appId": "bzwallet.bzedge.fullnode",
-    "afterAllArtifactBuild": "./afterSignHook.js",
     "files": [
       "dist/",
       "node_modules/",
@@ -90,8 +89,7 @@
         }
       ],
       "target": [
-        "zip",
-        "msi"
+        "zip"
       ]
     },
     "mac": {

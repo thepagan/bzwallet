@@ -271,7 +271,7 @@ export default class MenuBuilder {
             }
           },
           {
-            label: 'zcashd info',
+            label: 'bzwallet info',
             click: () => {
               this.mainWindow.webContents.send('bzedged');
             }
@@ -282,7 +282,7 @@ export default class MenuBuilder {
         label: 'Help',
         submenu: [
           {
-            label: 'About Zecwallet Fullnode',
+            label: 'About BZWallet Fullnode',
             click: () => {
               mainWindow.webContents.send('about');
             }

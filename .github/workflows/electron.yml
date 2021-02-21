@@ -68,31 +68,31 @@ jobs:
         if: contains(matrix.os, 'ubuntu')
         with:
           name: ${{ matrix.os }}
-          path: release/Zecwallet_Fullnode_${{ env.VERSION }}_amd64.deb
+          path: release/BZWallet_Fullnode${{ env.VERSION }}_amd64.deb
       - name: Upload artifacts-AppImage
         uses: actions/upload-artifact@v1
         if: contains(matrix.os, 'ubuntu')
         with:
           name: ${{ matrix.os }}
-          path: release/Zecwallet Fullnode-${{ env.VERSION }}.AppImage
+          path: release/BZWallet Fullnode-${{ env.VERSION }}.AppImage
       - name: Upload artifacts-dmg
         uses: actions/upload-artifact@v1
         if: contains(matrix.os, 'macos')
         with:
           name: ${{ matrix.os }}
-          path: release/Zecwallet Fullnode-${{ env.VERSION }}.dmg
+          path: release/BZWallet Fullnode-${{ env.VERSION }}.dmg
       - name: Upload artifacts-zip
         uses: actions/upload-artifact@v1
         if: contains(matrix.os, 'windows')
         with:
           name: ${{ matrix.os }}
-          path: release/Zecwallet Fullnode-${{ env.VERSION }}-win.zip
+          path: release/BZWallet Fullnode-${{ env.VERSION }}-win.zip
       - name: Upload artifacts-msi
         uses: actions/upload-artifact@v1
         if: contains(matrix.os, 'windows')
         with:
           name: ${{ matrix.os }}
-          path: release/Zecwallet Fullnode ${{ env.VERSION }}.msi
+          path: release/BZWallet Fullnode ${{ env.VERSION }}.msi
 
   job_signbinaries:
     name: Consolidate and sign binaries
@@ -138,9 +138,9 @@ jobs:
           APP_VERSION: ${{ env.VERSION }}
         run: |
           bin/signbinaries.sh
-          tar -cf Zecwallet-artifacts-$APP_VERSION.tar.gz release/signatures*.zip release/Zecwallet*
+          tar -cf BZWallet-artifacts-$APP_VERSION.tar.gz release/signatures*.zip release/BZWallet*
       - name: Upload final artifacts
         uses: actions/upload-artifact@v1
         with:
-          name: zecwallet-artifacts
-          path: Zecwallet-artifacts-${{ env.VERSION }}.tar.gz
+          name: bzwallet-artifacts
+          path: bzwallet-artifacts-${{ env.VERSION }}.tar.gz
