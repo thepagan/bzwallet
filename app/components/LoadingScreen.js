@@ -287,7 +287,7 @@ class LoadingScreen extends Component<Props, LoadingScreenState> {
         const { history } = this.props;
         const { rpcConfig } = this.state;
 
-        this.setState({ currentStatus: 'Waiting for zcashd to exit...' });
+        this.setState({ currentStatus: 'Waiting for bzedged to close...' });
         history.push(routes.LOADING);
 
         this.zcashd.on('close', () => {
@@ -312,7 +312,7 @@ class LoadingScreen extends Component<Props, LoadingScreenState> {
     const { zcashdSpawned } = this.state;
 
     if (zcashdSpawned) {
-      this.setState({ currentStatus: 'zcashd start failed' });
+      this.setState({ currentStatus: 'bzedge daemon start failed' });
       return;
     }
 
@@ -322,10 +322,10 @@ class LoadingScreen extends Component<Props, LoadingScreenState> {
     this.zcashd = spawn(program);
 
     this.setState({ zcashdSpawned: 1 });
-    this.setState({ currentStatus: 'zcashd starting...' });
+    this.setState({ currentStatus: 'bzedge daemon starting...' });
 
     this.zcashd.on('error', err => {
-      console.log(`zcashd start error, giving up. Error: ${err}`);
+      console.log(`bzedge daemon start error, giving up. Error: ${err}`);
       // Set that we tried to start zcashd, and failed
       this.setState({ zcashdSpawned: 1 });
 
@@ -364,7 +364,7 @@ class LoadingScreen extends Component<Props, LoadingScreenState> {
       }
 
       if (err === NO_CONNECTION && zcashdSpawned && getinfoRetryCount < 10) {
-        this.setState({ currentStatus: 'Waiting for zcashd to start...' });
+        this.setState({ currentStatus: 'Waiting for bzedge daemon to start...' });
         const inc = getinfoRetryCount + 1;
         this.setState({ getinfoRetryCount: inc });
         this.setupNextGetInfo();
@@ -375,11 +375,11 @@ class LoadingScreen extends Component<Props, LoadingScreenState> {
         this.setState({
           currentStatus: (
             <span>
-              Failed to start zcashd. Giving up! Please look at the debug.log file.
+              Failed to start bzedge daemon. Giving up! Please look at the debug.log file.
               <br />
               <span className={cstyles.highlight}>{`${locateZcashConfDir()}/debug.log`}</span>
               <br />
-              Please file an issue with Zecwallet
+              Please file an issue with BZWallet
             </span>
           )
         });
@@ -435,18 +435,18 @@ class LoadingScreen extends Component<Props, LoadingScreenState> {
                   style={{ width: '75%', marginLeft: '15%' }}
                 >
                   <div>
-                    Zecwallet Fullnode will download the{' '}
-                    <span className={cstyles.highlight}>entire Zcash Blockchain (~28GB)</span>, which might take several
-                    days to sync. If you want to get started immediately, please consider{' '}
+                    BZWallet will download the{' '}
+                    <span className={cstyles.highlight}>entire BZEdge Blockchain (~4Gb)</span>, which might take several
+                    hours to sync. If you want to get started immediately, please consider{' '}
                     <a
                       className={cstyles.highlight}
                       style={{ textDecoration: 'underline' }}
                       role="link"
-                      onClick={() => shell.openExternal('https://www.zecwallet.co')}
+                      onClick={() => shell.openExternal('https://bootstrap.getbze.com')}
                     >
-                      Zecwallet Lite
+                      using bootstrap
                     </a>
-                    , which can get you started in under a minute.
+                    , which can get you started in a few minutes
                   </div>
                 </div>
 
@@ -470,7 +470,7 @@ class LoadingScreen extends Component<Props, LoadingScreenState> {
                       &nbsp; Enable Fast Sync
                     </div>
                     <div className={cstyles.sublight}>
-                      When enabled, Zecwallet will skip some expensive verifications of the zcashd blockchain when
+                      When enabled, BZWallet will skip some expensive verifications of the BZEdge blockchain when
                       downloading. This option is safe to use if you are creating a brand new wallet.
                     </div>
                   </div>
@@ -478,7 +478,7 @@ class LoadingScreen extends Component<Props, LoadingScreenState> {
 
                 <div className={cstyles.buttoncontainer}>
                   <button type="button" className={cstyles.primarybutton} onClick={this.createZcashconf}>
-                    Start Zcash
+                    Start BZEdge daemon
                   </button>
                 </div>
               </div>

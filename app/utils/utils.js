@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-else-return */
 /* eslint-disable no-plusplus */
-export const NO_CONNECTION: string = 'Could not connect to zcashd';
+export const NO_CONNECTION: string = 'Could not connect to bzedged';
 
 export default class Utils {
   static isSapling(addr: string): boolean {
