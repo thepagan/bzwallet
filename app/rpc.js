@@ -333,7 +333,7 @@ export default class RPC {
 
   // Fetch all T and Z transactions
   async fetchTandZTransactions() {
-    const tresponse = await RPC.doRPC('listtransactions', [], this.rpcConfig);
+    const tresponse = await RPC.doRPC('listtransactions', ['*', 50], this.rpcConfig);
     const zaddressesPromise = RPC.doRPC('z_listaddresses', [], this.rpcConfig);
     const senttxstorePromise = SentTxStore.loadSentTxns();
 
