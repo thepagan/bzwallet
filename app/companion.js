@@ -380,7 +380,7 @@ export default class CompanionAppListener {
     const zecprice = parseFloat(appState.info.zecPrice);
 
     const resp = {
-      version: 1.0,
+      version: 0,
       command: 'getInfo',
       saplingAddress,
       tAddress,
@@ -389,7 +389,7 @@ export default class CompanionAppListener {
       maxzspendable,
       tokenName,
       zecprice,
-      serverversion: '1.4.2'
+      serverversion: '0.5.2'
     };
 
     return JSON.stringify(resp);

@@ -1,7 +1,7 @@
 {
   "name": "bzwallet",
   "productName": "BZWallet Fullnode",
-  "version": "1.4.2",
+  "version": "0.5.2",
   "description": "BZWallet Fullnode",
   "main": "./main.prod.js",
   "author": {

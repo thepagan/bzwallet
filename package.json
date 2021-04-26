@@ -1,7 +1,7 @@
 {
   "name": "bzwallet",
   "productName": "BZWallet FUll Node",
-  "version": "1.4.2",
+  "version": "0.5.2",
   "description": "BZWallet (Electron version)",
   "scripts": {
     "build": "concurrently \"yarn build-main\" \"yarn build-renderer\"",
