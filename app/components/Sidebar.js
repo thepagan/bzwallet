@@ -225,7 +225,7 @@ class Sidebar extends PureComponent<Props, State> {
       openErrorModal(
         'BZWallet Fullnode',
         <div className={cstyles.verticalflex}>
-          <div className={cstyles.margintoplarge}>BZWallet Fullnode v0.5.2</div>
+          <div className={cstyles.margintoplarge}>BZWallet Fullnode v0.5.3</div>
           <div className={cstyles.margintoplarge}>Built with Electron. Copyright (c) 2018-2021, BZEdge Alpha Team.</div>
           <div className={cstyles.margintoplarge}>
             The MIT License (MIT) Copyright (c) 2018-2021 BZWallet
