@@ -8,7 +8,7 @@ const MNList = ({ data }) => {
         // eslint-disable-next-line react/prop-types
         data.map(d => {
           return (
-            <tr>
+            <tr key={d.rank}>
               <td
                 style={{
                   textalign: 'center'

@@ -28,13 +28,19 @@ const Masternode = () => {
       <div className={cstyles.center} style={{ height: '650px', overflowY: 'scroll' }}>
         <div className={[cstyles.xlarge, cstyles.padall, cstyles.center].join(' ')}>Masternodes</div>
         <table style={{ marginLeft: 'auto', marginRight: 'auto' }}>
-          <th>Status</th>
-          <th>Version</th>
-          <th>Address</th>
-          <th>Last Seen</th>
-          <th>TxID</th>
-          <th>IP</th>
-          <MNList data={MNListData} />
+          <thead>
+            <tr>
+              <th>Status</th>
+              <th>Version</th>
+              <th>Address</th>
+              <th>Last Seen</th>
+              <th>TxID</th>
+              <th>IP</th>
+            </tr>
+          </thead>
+          <tbody>
+            <MNList data={MNListData} />
+          </tbody>
         </table>
       </div>
     </>
