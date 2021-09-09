@@ -145,6 +145,30 @@ export class Info {
   disconnected: boolean;
 }
 
+export class MNList {
+  rank: number;
+
+  network: string;
+
+  ip: string;
+
+  txhash: string;
+
+  outidx: number;
+
+  status: string;
+
+  addr: string;
+
+  version: number;
+
+  lastseen: number;
+
+  activetime: number;
+
+  lastpaid: number;
+}
+
 export class ConnectedCompanionApp {
   name: string;
 
@@ -187,6 +211,9 @@ export default class AppState {
 
   // getinfo and getblockchaininfo result
   info: Info;
+
+  // masternode list result
+  mnlist: MNList;
 
   // The last seen connected companion app
   connectedCompanionApp: ConnectedCompanionApp;
