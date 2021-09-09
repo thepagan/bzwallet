@@ -3,7 +3,7 @@
 import axios from 'axios';
 import _ from 'underscore';
 import hex from 'hex-string';
-import { TotalBalance, AddressBalance, Transaction, RPCConfig, TxDetail, Info } from './components/AppState';
+import { TotalBalance, AddressBalance, Transaction, RPCConfig, TxDetail, Info, MNList } from './components/AppState';
 import Utils, { NO_CONNECTION } from './utils/utils';
 import SentTxStore from './utils/SentTxStore';
 
@@ -192,6 +192,25 @@ export default class RPC {
     }
 
     this.setupNextFetch(latestBlockHeight);
+  }
+
+  static async getMNListObject(rpcConfig: RPCConfig) {
+    const mnlistResult = await RPC.doRPC('masternode', ["list"], rpcConfig);
+
+    const mnlist = new MNList();
+    mnlist.rank = mnlistResult.result.rank;
+    mnlist.network = mnlistResult.result.network;
+    mnlist.ip = mnlistResult.result.ip;
+    mnlist.txhash = mnlistResult.result.txhash;
+    mnlist.outidx = mnlistResult.result.outidx;
+    mnlist.status = mnlistResult.result.status;
+    mnlist.addr = mnlistResult.result.addr;
+    mnlist.version = mnlistResult.result.version;
+    mnlist.lastseen = mnlistResult.result.lastseen;
+    mnlist.activetime = mnlistResult.result.activetime;
+    mnlist.lastpaid = mnlistResult.result.lastpaid;
+
+    return mnlist;
   }
 
   // Special method to get the Info object. This is used both internally and by the Loading screen
