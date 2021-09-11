@@ -167,6 +167,32 @@ export class MNList {
   activetime: number;
 
   lastpaid: number;
+
+  constructor(
+    rank: number,
+    network: string,
+    ip: string,
+    txhash: string,
+    outidx: number,
+    status: string,
+    addr: string,
+    version: number,
+    lastseen: number,
+    activetime: number,
+    lastpaid: number
+  ) {
+    this.rank = rank;
+    this.network = '';
+    this.ip = '';
+    this.txhash = '';
+    this.outidx = outidx;
+    this.status = '';
+    this.addr = '';
+    this.version = version;
+    this.lastseen = lastseen;
+    this.activetime = activetime;
+    this.lastpaid = lastpaid;
+  }
 }
 
 export class ConnectedCompanionApp {

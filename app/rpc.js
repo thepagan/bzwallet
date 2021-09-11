@@ -210,7 +210,7 @@ export default class RPC {
     mnlist.activetime = mnlistResult.result.activetime;
     mnlist.lastpaid = mnlistResult.result.lastpaid;
 
-    return mnlistResult;
+    return mnlist;
   }
 
   // Special method to get the Info object. This is used both internally and by the Loading screen

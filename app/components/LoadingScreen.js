@@ -352,9 +352,14 @@ class LoadingScreen extends Component<Props, LoadingScreenState> {
 
     // Try getting the info.
     try {
-      const mnlist = await RPC.getMNListObject(rpcConfig);
-      console.log(mnlist);
-      mnlist.forEach(element => console.log(element));
+      const masternodelist = await RPC.getMNListObject(rpcConfig);
+      console.log(masternodelist);
+      masternodelist.forEach(element => console.log(element));
+      // eslint-disable-next-line no-plusplus
+      for (let i = 0; i < masternodelist.length; i++) {
+        const rank = masternodelist[i];
+        console.log(rank);
+      }
     } catch (err) {
       // Not yet finished loading. So update the state, and setup the next refresh
       console.log("It's the Borg, Captain.");
