@@ -13,7 +13,7 @@ import { remote, ipcRenderer, shell } from 'electron';
 import { spawn } from 'child_process';
 import { promisify } from 'util';
 import routes from '../constants/routes.json';
-import { RPCConfig, Info, MNList } from './AppState';
+import { RPCConfig, Info } from './AppState';
 import RPC from '../rpc';
 import cstyles from './Common.module.css';
 import styles from './LoadingScreen.module.css';
@@ -76,7 +76,6 @@ const locateZcashParamsDir = () => {
 type Props = {
   setRPCConfig: (rpcConfig: RPCConfig) => void,
   setInfo: (info: Info) => void,
-  setMNList: (mnlist: MNList) => void,
   history: PropTypes.object.isRequired
 };
 
@@ -249,6 +248,8 @@ class LoadingScreen extends Component<Props, LoadingScreenState> {
 
     // And setup the next getinfo
     this.setupNextGetInfo();
+    // And setup the next masternode list
+    this.setupNextGetMNList();
   }
 
   createZcashconf = async () => {
@@ -353,11 +354,7 @@ class LoadingScreen extends Component<Props, LoadingScreenState> {
     try {
       const mnlist = await RPC.getMNListObject(rpcConfig);
       console.log(mnlist);
-
-      const { setRPCConfig, setMNList } = this.props;
-
-      setRPCConfig(rpcConfig);
-      setMNList(mnlist);
+      mnlist.forEach(element => console.log(element));
     } catch (err) {
       // Not yet finished loading. So update the state, and setup the next refresh
       console.log("It's the Borg, Captain.");

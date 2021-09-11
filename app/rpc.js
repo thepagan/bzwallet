@@ -3,7 +3,7 @@
 import axios from 'axios';
 import _ from 'underscore';
 import hex from 'hex-string';
-import { TotalBalance, AddressBalance, Transaction, RPCConfig, TxDetail, Info, MNList } from './components/AppState';
+import { TotalBalance, AddressBalance, Transaction, RPCConfig, TxDetail, Info } from './components/AppState';
 import Utils, { NO_CONNECTION } from './utils/utils';
 import SentTxStore from './utils/SentTxStore';
 
@@ -197,7 +197,7 @@ export default class RPC {
   static async getMNListObject(rpcConfig: RPCConfig) {
     const mnlistResult = await RPC.doRPC('masternode', ["list"], rpcConfig);
 
-    const mnlist = new MNList();
+    const mnlist = mnlistResult.result;
     mnlist.rank = mnlistResult.result.rank;
     mnlist.network = mnlistResult.result.network;
     mnlist.ip = mnlistResult.result.ip;
@@ -210,7 +210,7 @@ export default class RPC {
     mnlist.activetime = mnlistResult.result.activetime;
     mnlist.lastpaid = mnlistResult.result.lastpaid;
 
-    return mnlist;
+    return mnlistResult;
   }
 
   // Special method to get the Info object. This is used both internally and by the Loading screen
