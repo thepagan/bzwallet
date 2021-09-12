@@ -194,6 +194,12 @@ export default class RPC {
     this.setupNextFetch(latestBlockHeight);
   }
 
+  static async getMNListObject(rpcConfig: RPCConfig) {
+    const mnlistResult = await RPC.doRPC('masternode', ["list"], rpcConfig);
+    const shortlist = mnlistResult.result;
+    return shortlist;
+  }
+
   // Special method to get the Info object. This is used both internally and by the Loading screen
   static async getInfoObject(rpcConfig: RPCConfig) {
     const infoResult = await RPC.doRPC('getinfo', [], rpcConfig);
