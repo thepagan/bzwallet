@@ -3,7 +3,7 @@
 import axios from 'axios';
 import _ from 'underscore';
 import hex from 'hex-string';
-import { TotalBalance, AddressBalance, Transaction, RPCConfig, TxDetail, Info } from './components/AppState';
+import { TotalBalance, AddressBalance, Transaction, RPCConfig, TxDetail, Info, MNList } from './components/AppState';
 import Utils, { NO_CONNECTION } from './utils/utils';
 import SentTxStore from './utils/SentTxStore';
 
@@ -32,6 +32,8 @@ export default class RPC {
 
   fnSetInfo: Info => void;
 
+  fnSetMNList: (MNList[]) => void;
+
   fnSetTotalBalance: TotalBalance => void;
 
   fnSetAddressesWithBalance: (AddressBalance[]) => void;
@@ -58,6 +60,7 @@ export default class RPC {
     fnSetTransactionsList: (Transaction[]) => void,
     fnSetAllAddresses: (string[]) => void,
     fnSetInfo: Info => void,
+    fnSetMNList: (MNList[]) => void,
     fnSetZecPrice: number => void,
     fnSetDisconnected: () => void
   ) {
@@ -66,6 +69,7 @@ export default class RPC {
     this.fnSetTransactionsList = fnSetTransactionsList;
     this.fnSetAllAddresses = fnSetAllAddresses;
     this.fnSetInfo = fnSetInfo;
+    this.fnSetMNList = fnSetMNList;
     this.fnSetZecPrice = fnSetZecPrice;
     this.fnSetDisconnected = fnSetDisconnected;
 
@@ -196,21 +200,8 @@ export default class RPC {
 
   static async getMNListObject(rpcConfig: RPCConfig) {
     const mnlistResult = await RPC.doRPC('masternode', ["list"], rpcConfig);
-
-    const mnlist = mnlistResult.result;
-    mnlist.rank = mnlistResult.result.rank;
-    mnlist.network = mnlistResult.result.network;
-    mnlist.ip = mnlistResult.result.ip;
-    mnlist.txhash = mnlistResult.result.txhash;
-    mnlist.outidx = mnlistResult.result.outidx;
-    mnlist.status = mnlistResult.result.status;
-    mnlist.addr = mnlistResult.result.addr;
-    mnlist.version = mnlistResult.result.version;
-    mnlist.lastseen = mnlistResult.result.lastseen;
-    mnlist.activetime = mnlistResult.result.activetime;
-    mnlist.lastpaid = mnlistResult.result.lastpaid;
-
-    return mnlist;
+    const shortlist = mnlistResult.result;
+    return shortlist;
   }
 
   // Special method to get the Info object. This is used both internally and by the Loading screen

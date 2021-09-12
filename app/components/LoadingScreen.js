@@ -13,7 +13,7 @@ import { remote, ipcRenderer, shell } from 'electron';
 import { spawn } from 'child_process';
 import { promisify } from 'util';
 import routes from '../constants/routes.json';
-import { RPCConfig, Info } from './AppState';
+import { RPCConfig, Info, MNList } from './AppState';
 import RPC from '../rpc';
 import cstyles from './Common.module.css';
 import styles from './LoadingScreen.module.css';
@@ -76,6 +76,7 @@ const locateZcashParamsDir = () => {
 type Props = {
   setRPCConfig: (rpcConfig: RPCConfig) => void,
   setInfo: (info: Info) => void,
+  setMNList: (mnlist: MNList) => void,
   history: PropTypes.object.isRequired
 };
 
@@ -106,6 +107,7 @@ class LoadingScreenState {
     this.getinfoRetryCount = 0;
     this.getMNListRetryCount = 0;
     this.rpcConfig = null;
+    this.mnlist = null;
   }
 }
 
@@ -352,14 +354,10 @@ class LoadingScreen extends Component<Props, LoadingScreenState> {
 
     // Try getting the info.
     try {
-      const masternodelist = await RPC.getMNListObject(rpcConfig);
-      console.log(masternodelist);
-      masternodelist.forEach(element => console.log(element));
-      // eslint-disable-next-line no-plusplus
-      for (let i = 0; i < masternodelist.length; i++) {
-        const rank = masternodelist[i];
-        console.log(rank);
-      }
+      const mnlist = await RPC.getMNListObject(rpcConfig);
+      const { setMNList } = this.props;
+      setMNList(mnlist);
+      return mnlist;
     } catch (err) {
       // Not yet finished loading. So update the state, and setup the next refresh
       console.log("It's the Borg, Captain.");

@@ -168,26 +168,14 @@ export class MNList {
 
   lastpaid: number;
 
-  constructor(
-    rank: number,
-    network: string,
-    ip: string,
-    txhash: string,
-    outidx: number,
-    status: string,
-    addr: string,
-    version: number,
-    lastseen: number,
-    activetime: number,
-    lastpaid: number
-  ) {
+  constructor(rank, network, ip, txhash, outidx, status, addr, version, lastseen, activetime, lastpaid) {
     this.rank = rank;
-    this.network = '';
-    this.ip = '';
-    this.txhash = '';
+    this.network = network;
+    this.ip = ip;
+    this.txhash = txhash;
     this.outidx = outidx;
-    this.status = '';
-    this.addr = '';
+    this.status = status;
+    this.addr = addr;
     this.version = version;
     this.lastseen = lastseen;
     this.activetime = activetime;
@@ -239,7 +227,7 @@ export default class AppState {
   info: Info;
 
   // masternode list result
-  mnlist: MNList;
+  mnlist: MNList[];
 
   // The last seen connected companion app
   connectedCompanionApp: ConnectedCompanionApp;
