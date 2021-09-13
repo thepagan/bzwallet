@@ -24,11 +24,6 @@ const locateZcashConf = () => {
   return path.join(remote.app.getPath('appData'), 'Bzedge', 'bzedge.conf');
 };
 
-type Props = {
-  // eslint-disable-next-line react/no-unused-prop-types
-  setRPCConfig: (rpcConfig: RPCConfig) => void
-};
-
 class MasternodeState {
   currentStatus: string;
 
@@ -36,13 +31,16 @@ class MasternodeState {
 
   rpcConfig: RPCConfig | null;
 
-  getMNListRetryCoune: number;
+  MasternodeConfig: MasternodeConfig | null;
+
+  getMNListRetryCount: number;
 
   constructor() {
     this.currentStatus = 'Loading...';
     this.loadingDone = false;
     this.getMNListRetryCount = 0;
     this.rpcConfig = null;
+    this.MasternodeConfig = null;
   }
 }
 
@@ -87,12 +85,17 @@ class Masternode extends Component<Props, MasternodeState> {
 
     // And setup the next masternode list
     this.setupNextGetMNList();
+    this.setupNextGetMasternodeConf();
   }
 
   zcashd: ChildProcessWithoutNullStreams | null = null;
 
   setupNextGetMNList() {
     setTimeout(() => this.getMNList(), 1000);
+  }
+
+  setupNextGetMasternodeConf() {
+    setTimeout(() => this.getMasternodeConf(), 1000);
   }
 
   async getMNList() {
@@ -117,7 +120,7 @@ class Masternode extends Component<Props, MasternodeState> {
             `<td>${x.version}</td>` +
             `<td>${x.addr}</td>` +
             `<td>${dateFormat(Date(x.lastseen), 'dd/mm/yy h:MM:ss TT')}</td>` +
-            `<td><i class="fas fa-project-diagram" title=${x.txhash} /></td>` +
+            `<td><i class="fas fa-project-diagram" onclick="setClipboard('${x.txhash}')" title=${x.txhash} /></td>` +
             `<td>${x.ip}</td>`;
         } else {
           tr +=
@@ -141,6 +144,36 @@ class Masternode extends Component<Props, MasternodeState> {
     }
   }
 
+  async getMasternodeConf() {
+    const { rpcConfig, getMNListRetryCount } = this.state;
+
+    // Try getting the info.
+    try {
+      const masterlist = await RPC.getMasternodeConfObject(rpcConfig);
+      const table = document.getElementById('mnconflist');
+      table.innerHTML = '';
+      let tr = '';
+      masterlist.forEach(item => {
+        tr +=
+          '<tr>' +
+          `<td>${item.status}</td>` +
+          `<td>${item.alias}</td>` +
+          `<td>${item.address}</td>` +
+          `<td><i class="fas fa-key" onclick="setClipboard('${item.privateKey}')" title="${item.privateKey}" /></td>` +
+          `<td><i class="fas fa-key" onclick="setClipboard('${item.txHash}')" title="${item.txHash}" /></td>` +
+          `<td>${item.outputIndex}</td>` +
+          '</tr>';
+      });
+      table.innerHTML += tr;
+    } catch (err) {
+      // Not yet finished loading. So update the state, and setup the next refresh
+      console.log("It's the Klingons, Captain.");
+      const inc = getMNListRetryCount + 1;
+      this.setState({ getMNListRetryCount: inc });
+      this.setupNextGetMNList();
+    }
+  }
+
   render() {
     const { loadingDone } = this.state;
 
@@ -148,7 +181,22 @@ class Masternode extends Component<Props, MasternodeState> {
     if (!loadingDone) {
       return (
         <div className={cstyles.center} style={{ height: '650px', overflowY: 'scroll' }}>
-          <div className={[cstyles.xlarge, cstyles.padall, cstyles.center].join(' ')}>Masternodes</div>
+          <div className={[cstyles.large, cstyles.padall, cstyles.center].join(' ')}>My Masternodes</div>
+          <table style={{ marginLeft: 'auto', marginRight: 'auto' }}>
+            <thead>
+              <tr>
+                <th>Status</th>
+                <th>Alias</th>
+                <th>IP Address</th>
+                <th>Private Key</th>
+                <th>TX Hash</th>
+                <th>Output Index</th>
+              </tr>
+            </thead>
+            <tbody id="mnconflist" />
+          </table>
+          <hr />
+          <div className={[cstyles.large, cstyles.padall, cstyles.center].join(' ')}>All Masternodes</div>
           <table style={{ marginLeft: 'auto', marginRight: 'auto' }}>
             <thead>
               <tr>
