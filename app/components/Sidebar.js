@@ -535,6 +535,12 @@ class Sidebar extends PureComponent<Props, State> {
             currentRoute={location.pathname}
             iconname="fa-microchip"
           />
+          <SidebarMenuItem
+            name="MN Control"
+            routeName={routes.MASTERNODECONTROL}
+            currentRoute={location.pathname}
+            iconname="fa-cogs"
+          />
         </div>
 
         <div className={cstyles.center}>

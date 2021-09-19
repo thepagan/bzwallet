@@ -160,7 +160,7 @@ class Masternode extends Component<Props, MasternodeState> {
           `<td>${item.alias}</td>` +
           `<td>${item.address}</td>` +
           `<td><i class="fas fa-key" onclick="setClipboard('${item.privateKey}')" title="${item.privateKey}" /></td>` +
-          `<td><i class="fas fa-key" onclick="setClipboard('${item.txHash}')" title="${item.txHash}" /></td>` +
+          `<td>${item.txHash}"</td>` +
           `<td>${item.outputIndex}</td>` +
           '</tr>';
       });
@@ -181,8 +181,17 @@ class Masternode extends Component<Props, MasternodeState> {
     if (!loadingDone) {
       return (
         <div className={cstyles.center} style={{ height: '650px', overflowY: 'scroll' }}>
-          <div className={[cstyles.large, cstyles.padall, cstyles.center].join(' ')}>My Masternodes</div>
-          <table style={{ marginLeft: 'auto', marginRight: 'auto' }}>
+          <div className={[cstyles.xlarge, cstyles.padall, cstyles.center].join(' ')}>Masternodes</div>
+          <div
+            className={[cstyles.tableheader, cstyles.well].join(' ')}
+            style={{ marginLeft: 'auto', marginRight: 'auto' }}
+          >
+            My Masternodes
+          </div>
+          <table
+            className={[cstyles.padall, cstyles.well].join(' ')}
+            style={{ width: '100%', marginLeft: 'auto', marginRight: 'auto' }}
+          >
             <thead>
               <tr>
                 <th>Status</th>
@@ -195,9 +204,13 @@ class Masternode extends Component<Props, MasternodeState> {
             </thead>
             <tbody id="mnconflist" />
           </table>
-          <hr />
-          <div className={[cstyles.large, cstyles.padall, cstyles.center].join(' ')}>All Masternodes</div>
-          <table style={{ marginLeft: 'auto', marginRight: 'auto' }}>
+          <div className={[cstyles.large, cstyles.tableheader, cstyles.padall, cstyles.well, cstyles.center].join(' ')}>
+            All Masternodes
+          </div>
+          <table
+            className={[cstyles.well].join(' ')}
+            style={{ width: '100%', marginLeft: 'auto', marginRight: 'auto' }}
+          >
             <thead>
               <tr>
                 <th>Status</th>

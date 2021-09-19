@@ -1,3 +1,4 @@
+/* eslint-disable prefer-destructuring */
 /* eslint-disable prettier/prettier */
 /* eslint-disable max-classes-per-file */
 import axios from 'axios';
@@ -199,6 +200,27 @@ export default class RPC {
     const shortlist = mnlistResult.result;
     return shortlist;
   }
+
+  static async getStopDaemonObject(rpcConfig: RPCConfig) {
+    const mnlistResult = await RPC.doRPC('stop', [], rpcConfig);
+    const shortlist = mnlistResult.result;
+    return shortlist;
+  }
+
+  static async getMasternodeConfObject(rpcConfig: RPCConfig) {
+    const masterlist = await RPC.doRPC('masternode', ["list-conf"], rpcConfig);
+    const masternodeconf = masterlist.result;
+    return masternodeconf;
+  }
+
+  static async getMasternodeStartObject(vars: vars, rpcConfig: RPCConfig) {
+    // eslint-disable-next-line no-template-curly-in-string
+    let startmasternodeResult = await RPC.doRPC('startmasternode', ["alias", "0", vars], rpcConfig);
+    startmasternodeResult = startmasternodeResult.result.detail[0];
+    // eslint-disable-next-line no-alert
+    return startmasternodeResult;
+  }
+
 
   // Special method to get the Info object. This is used both internally and by the Loading screen
   static async getInfoObject(rpcConfig: RPCConfig) {

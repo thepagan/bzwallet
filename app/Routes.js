@@ -11,6 +11,7 @@ import routes from './constants/routes.json';
 import App from './containers/App';
 import Dashboard from './components/Dashboard';
 import Masternode from './components/Masternode';
+import MasternodeControl from './components/MasternodeControl';
 import Send from './components/Send';
 import Receive from './components/Receive';
 import LoadingScreen from './components/LoadingScreen';
@@ -467,6 +468,7 @@ export default class RouteApp extends React.Component<Props, AppState> {
                 // eslint-disable-next-line react/jsx-props-no-spreading
                 render={() => <Masternode />}
               />
+              <Route path={routes.MASTERNODECONTROL} render={() => <MasternodeControl />} />
               <Route
                 path={routes.TRANSACTIONS}
                 render={() => (
