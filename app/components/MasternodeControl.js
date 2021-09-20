@@ -1,3 +1,4 @@
+/* eslint-disable func-names */
 /* eslint-disable no-useless-concat */
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/interactive-supports-focus */
@@ -5,14 +6,17 @@
 /* eslint-disable max-classes-per-file */
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
-import ini from 'ini';
+import ini, { stringify } from 'ini';
 import fs from 'fs';
 import os from 'os';
 import path from 'path';
 import { remote } from 'electron';
+import { contextIsolated } from 'process';
 import { RPCConfig } from './AppState';
 import RPC from '../rpc';
 import cstyles from './Common.module.css';
+
+const readline = require('readline');
 
 const locateZcashConf = () => {
   if (os.platform() === 'darwin') {
@@ -68,6 +72,7 @@ const writeMNConfFile = vars => {
 const writeConfFileRestart = vars => {
   // Load the RPC config from zcash.conf file
   const MasternodeConfLocation = locateMasternodeConf();
+  console.log(vars);
   // eslint-disable-next-line no-unused-vars
   try {
     fs.appendFileSync(MasternodeConfLocation, vars);
@@ -135,6 +140,33 @@ class MasternodeScripts extends Component<Props, MasternodeScriptsState> {
 
   setupNextChangeConfig(vars) {
     this.ChangeConfig(vars);
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  async processLineByLine(vars) {
+    const MasternodeConfLocation = locateMasternodeConf();
+    let confValues = ini.parse(await fs.promises.readFile(MasternodeConfLocation, { encoding: 'utf-8' }));
+    confValues = stringify(confValues);
+    confValues = confValues.slice(0, -1);
+    confValues = confValues.split('\n');
+    console.log(confValues);
+    let newConf = [];
+    confValues.forEach(x => {
+      const y = x.slice(0, -5);
+      console.log(y);
+      if (y === vars) {
+        console.log('Matched it');
+      } else {
+        console.log('No Match');
+        newConf += `${y}\n`;
+      }
+      fs.writeFileSync(MasternodeConfLocation, newConf);
+    });
+    // Note: we use the crlfDelay option to recognize all instances of CR LF
+    // ('\r\n') in input.txt as a single line break.
+    // eslint-disable-next-line no-restricted-syntax
+
+    // Each line in masternode.conf will be successively available here as `line`.
   }
 
   async ClearConfig() {
@@ -286,6 +318,7 @@ class MasternodeScripts extends Component<Props, MasternodeScriptsState> {
     try {
       const startoutput1 = await RPC.getMasternodeStartObject(vars, rpcConfig);
       console.log(startoutput1);
+      // eslint-disable-next-line no-alert
       alert(startoutput1.result);
     } catch (err) {
       // Not yet finished loading. So update the state, and setup the next refresh
@@ -322,6 +355,23 @@ class MasternodeScripts extends Component<Props, MasternodeScriptsState> {
     this.loadMasternodeConf();
     // this.getMasternodeConf();
     // And setup the next masternode list
+  }
+
+  // eslint-disable-next-line class-methods-use-this
+  async DropdownAppear(vars) {
+    function action() {
+      let button = document.getElementById(vars);
+      if (button.style.display === 'none') {
+        button.style.display = 'inherit';
+        button = document.getElementById(`remove-${vars}`);
+        button.style.display = 'inherit';
+      } else {
+        button.style.display = 'none';
+        button = document.getElementById(`remove-${vars}`);
+        button.style.display = 'none';
+      }
+    }
+    action();
   }
 
   async loadMasternodeConf() {
@@ -374,26 +424,48 @@ class MasternodeScripts extends Component<Props, MasternodeScriptsState> {
         table.appendChild(buttonspace);
         const buttonspace2 = document.createElement('div');
         buttonspace2.id = 'addbutton2';
-        buttonspace.className = cstyles.well;
+        buttonspace2.className = cstyles.well;
         table.appendChild(buttonspace2);
         mnfromfile.forEach(x => {
           const y = x.split(/[ ]+/);
+          const dropdownbutton = document.getElementById(y[3]);
+          const DropdownButton = document.createElement('Button');
+          DropdownButton.id = `dropdown-${y[3]}`;
+          DropdownButton.className = cstyles.menubutton;
+          DropdownButton.style.display = 'inherit';
+          DropdownButton.textContent = 'Actions';
+          DropdownButton.onclick = async () => {
+            await this.DropdownAppear(y[0]);
+          };
+          dropdownbutton.appendChild(DropdownButton);
           const button = document.getElementById(y[3]);
           const Button = document.createElement('Button');
-          // eslint-disable-next-line prefer-destructuring
-          Button.id = y[0];
+          Button.style.display = 'none';
+          Button.id = `${y[0]}`;
           Button.className = cstyles.primarybutton;
           Button.textContent = 'Start';
           Button.onclick = async () => {
+            console.log(y[0]);
             await this.getMasternodeStart(y[0]);
           };
+          const string = y.join(' ');
           button.appendChild(Button);
+          const button9 = document.getElementById(y[3]);
+          const Button9 = document.createElement('Button');
+          Button9.style.display = 'none';
+          Button9.id = `remove-${y[0]}`;
+          Button9.className = cstyles.warningbutton;
+          Button9.textContent = 'Remove';
+          Button9.onclick = async () => {
+            await this.processLineByLine(string);
+          };
+          button9.appendChild(Button9);
           return y;
         });
         const button2 = document.getElementById('addbutton');
         const Button2 = document.createElement('Button');
         Button2.id = 'button1';
-        Button2.className = cstyles.primarybutton;
+        Button2.className = cstyles.menubutton;
         Button2.textContent = 'Add more';
         Button2.onclick = async () => {
           await this.ChangeConfig(1);
@@ -402,11 +474,12 @@ class MasternodeScripts extends Component<Props, MasternodeScriptsState> {
         const button8 = document.getElementById('addbutton');
         const Button8 = document.createElement('Button');
         Button8.id = 'button8';
-        Button8.className = cstyles.primarybutton;
+        Button8.className = cstyles.warningbutton;
         Button8.textContent = 'Clear File';
         Button8.onclick = async () => {
           await this.ClearConfig();
         };
+
         button8.appendChild(Button8);
       } else {
         mnfromfile = mnfromfile.slice(2, -7);
@@ -439,17 +512,38 @@ class MasternodeScripts extends Component<Props, MasternodeScriptsState> {
         buttonspace2.id = 'addbutton2';
         buttonspace2.className = cstyles.well;
         table.appendChild(buttonspace2);
-
+        const dropdownbutton = document.getElementById(y[3]);
+        const DropdownButton = document.createElement('Button');
+        DropdownButton.id = `dropdown-${y[3]}`;
+        DropdownButton.className = cstyles.menubutton;
+        DropdownButton.style.display = 'inherit';
+        DropdownButton.textContent = 'Actions';
+        DropdownButton.onclick = async () => {
+          await this.DropdownAppear(y[0]);
+        };
+        dropdownbutton.appendChild(DropdownButton);
         const button = document.getElementById(y[3]);
         const Button = document.createElement('Button');
         // eslint-disable-next-line prefer-destructuring
         Button.id = y[0];
         Button.className = cstyles.primarybutton;
+        Button.style.display = 'none';
         Button.textContent = 'Start';
         Button.onclick = async () => {
           await this.getMasternodeStart(y[0]);
         };
         button.appendChild(Button);
+        const button9 = document.getElementById(y[3]);
+        const Button9 = document.createElement('Button');
+        const string = y.join(' ');
+        Button9.style.display = 'none';
+        Button9.id = `remove-${y[0]}`;
+        Button9.className = cstyles.warningbutton;
+        Button9.textContent = 'Remove';
+        Button9.onclick = async () => {
+          await this.processLineByLine(string);
+        };
+        button9.appendChild(Button9);
         const button3 = document.getElementById('addbutton2');
         const Button3 = document.createElement('Button');
         Button3.id = 'button2';
@@ -596,14 +690,14 @@ class MasternodeScripts extends Component<Props, MasternodeScriptsState> {
       return (
         <div id="master" className={cstyles.center} style={{ height: '650px', overflowY: 'scroll' }}>
           <div className={[cstyles.xlarge, cstyles.padall, cstyles.center].join(' ')}>Masternode Control</div>
-          <div id="mnconflist" className={[cstyles.padall, cstyles.center].join(' ')} />
+          <div id="mnconflist" className={[cstyles.padbottomsmall, cstyles.center].join(' ')} />
           <div
             id="mnfilelist"
             style={{ marginLeft: 'auto', marginRight: 'auto' }}
             className={[cstyles.padall, cstyles.center].join(' ')}
           />
           <div>
-            <div id="errorcatch" className={[]} />
+            <div id="errorcatch" className={[cstyles.padall, cstyles.center].join(' ')} />
             <div id="mnchoice" className={[cstyles.padall, cstyles.center].join(' ')} />
           </div>
         </div>
