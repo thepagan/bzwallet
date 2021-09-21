@@ -153,7 +153,7 @@ const PayURIModal = ({
   );
 };
 
-const SidebarMenuItem = ({ name, routeName, currentRoute, iconname }) => {
+const SidebarMenuItem = ({ name, routeName, currentRoute, iconname, normal }) => {
   let isActive = false;
 
   if ((currentRoute.endsWith('app.html') && routeName === routes.HOME) || currentRoute === routeName) {
@@ -165,17 +165,45 @@ const SidebarMenuItem = ({ name, routeName, currentRoute, iconname }) => {
     activeColorClass = styles.sidebarmenuitemactive;
   }
 
-  return (
-    <div className={[styles.sidebarmenuitem, activeColorClass].join(' ')}>
-      <Link to={routeName}>
-        <span className={activeColorClass}>
-          <i className={['fas', iconname].join(' ')} />
-          &nbsp; &nbsp;
-          {name}
-        </span>
-      </Link>
-    </div>
-  );
+  if (normal === '1') {
+    return (
+      <div id="menuitem" className={[styles.sidebarmenuitem, activeColorClass].join(' ')}>
+        <Link to={routeName}>
+          <span className={activeColorClass}>
+            <i className={['fas', iconname].join(' ')} />
+            &nbsp; &nbsp;
+            {name}
+          </span>
+        </Link>
+      </div>
+    );
+  }
+  if (normal === '0') {
+    return (
+      <div id="hiddenmenuitem1" className={[styles.hiddenmenu, styles.sidebarmenuitem, activeColorClass].join(' ')}>
+        <Link to={routeName}>
+          <span className={activeColorClass}>
+            <i className={['fas', iconname].join(' ')} />
+            &nbsp; &nbsp;
+            {name}
+          </span>
+        </Link>
+      </div>
+    );
+  }
+  if (normal === '3') {
+    return (
+      <div id="hiddenmenuitem2" className={[styles.hiddenmenu, styles.sidebarmenuitem, activeColorClass].join(' ')}>
+        <Link to={routeName}>
+          <span className={activeColorClass}>
+            <i className={['fas', iconname].join(' ')} />
+            &nbsp; &nbsp;
+            {name}
+          </span>
+        </Link>
+      </div>
+    );
+  }
 };
 
 type Props = {
@@ -379,6 +407,19 @@ class Sidebar extends PureComponent<Props, State> {
     this.setState({ uriModalIsOpen: true, uriModalInputValue });
   };
 
+  doMenuAction = () => {
+    let menu = document.getElementById('hiddenmenuitem1');
+    if (menu.style.display === 'none') {
+      menu.style.display = 'inherit';
+      menu = document.getElementById('hiddenmenuitem2');
+      menu.style.display = 'inherit';
+    } else {
+      menu.style.display = 'none';
+      menu = document.getElementById('hiddenmenuitem2');
+      menu.style.display = 'none';
+    }
+  };
+
   doImportPrivKeys = () => {
     const { importPrivKeys, openErrorModal } = this.props;
     const { privKeyInputValue } = this.state;
@@ -504,42 +545,49 @@ class Sidebar extends PureComponent<Props, State> {
             routeName={routes.DASHBOARD}
             currentRoute={location.pathname}
             iconname="fa-home"
+            normal="1"
           />
           <SidebarMenuItem
             name="Send"
             routeName={routes.SEND}
             currentRoute={location.pathname}
             iconname="fa-paper-plane"
+            normal="1"
           />
           <SidebarMenuItem
             name="Receive"
             routeName={routes.RECEIVE}
             currentRoute={location.pathname}
             iconname="fa-download"
+            normal="1"
           />
           <SidebarMenuItem
             name="Transactions"
             routeName={routes.TRANSACTIONS}
             currentRoute={location.pathname}
             iconname="fa-list"
+            normal="1"
           />
           <SidebarMenuItem
             name="Address Book"
             routeName={routes.ADDRESSBOOK}
             currentRoute={location.pathname}
             iconname="fa-address-book"
+            normal="1"
           />
           <SidebarMenuItem
             name="Masternodes"
             routeName={routes.MASTERNODE}
             currentRoute={location.pathname}
             iconname="fa-microchip"
+            normal="0"
           />
           <SidebarMenuItem
             name="MN Control"
             routeName={routes.MASTERNODECONTROL}
             currentRoute={location.pathname}
             iconname="fa-cogs"
+            normal="3"
           />
         </div>
 
@@ -548,6 +596,10 @@ class Sidebar extends PureComponent<Props, State> {
             <div className={[cstyles.padsmallall, cstyles.margintopsmall, cstyles.blackbg].join(' ')}>
               <i className={[cstyles.green, 'fas', 'fa-check'].join(' ')} />
               &nbsp; Connected
+              <br />
+              <button type="button" className={[cstyles.advancedbutton]} onClick={this.doMenuAction}>
+                Advanced
+              </button>
             </div>
           )}
           {state === 'SYNCING' && (

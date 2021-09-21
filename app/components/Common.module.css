@@ -98,6 +98,25 @@
   margin-right: 8px;
 }
 
+.advancedbutton {
+  background-color: rgb(224, 192, 51);
+  color: #000;
+  text-align: center;
+  width: 100%;
+  font-weight: bold;
+  font-size: 12px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 2px;
+  padding-right: 2px;
+  border-radius: 1px;
+  border-color: rgb(224, 192, 51);
+  margin-left: 0;
+  margin-right: 0;
+  margin-top: 4px;
+  margin-bottom: 0;
+}
+
 .menubutton {
   background-color: rgb(51, 224, 80);
   color: #000;

@@ -23,3 +23,7 @@
   width: 100%;
   max-height: calc(100vh - 400px);
 }
+
+.hiddenmenu {
+  display: none;
+}
